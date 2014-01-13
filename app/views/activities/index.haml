@@ -1,0 +1,30 @@
+%p
+  This is: activities/index
+
+#main-grid
+  - @activities.each do |a|
+    .grid-box{:activity_id=>a.id}
+      %h3
+        = a.title
+      %button.grid-button.grid-delete.btn.btn-danger{:type=>"button"}
+        %span.glyphicon.glyphicon-trash
+      %button.grid-button.grid-color.btn.btn-default{:type=>"button", :style=>"background-color:##{a.color}"}
+        %span.glyphicon.glyphicon-eye-open
+  - if @activities.length < 9
+    .grid-box#grid-add-box
+      %h3
+        %span.glyphicon.glyphicon-plus{:style=>"font-size:32px;margin-top:5px;"}
+
+.add-new
+  = form_for :activity, url: activities_path do |f|
+    %p{:style=>"position:relative;"}
+      = f.label :title
+      = f.text_field :title, :style=>"border:2px solid #eee;background-color:#f5f5f5;"
+    %p.submit-button
+      = f.submit 'Add', :class=>"grid-add btn btn-success", :style=>"padding:3px 8px;border-radius:0;padding-bottom:2px;"
+
+
+
+
+
+
