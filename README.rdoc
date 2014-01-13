@@ -6,7 +6,8 @@ The goal is for you to be able to track of which activities you have done today 
 
 We all have skills we should be honing on a daily basis but sometimes we forget or lose sight of how much of a difference doing something, a little bit each day, can have in the long-term.
 
-
+-- To reset:
+`rake db:drop db:migrate db:seed`
 
 
 
