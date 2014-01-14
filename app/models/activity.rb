@@ -1,4 +1,4 @@
 class Activity < ActiveRecord::Base
-  attr_accessible :title, :color
+  attr_accessible :title
 end
 
