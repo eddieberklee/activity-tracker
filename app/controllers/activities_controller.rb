@@ -4,8 +4,6 @@ class ActivitiesController < ApplicationController
   end
 
   def create
-    puts 'CREAAAAAAAAAAAAAAAAAAAATE'
-    puts params
     @activity = Activity.new(params[:activity])
     @activity.save
 
@@ -21,6 +19,19 @@ class ActivitiesController < ApplicationController
     @activity = Activity.find(params[:id])
     @activity.destroy
     
+    respond_to do |format|
+      format.html { redirect_to activities_path }
+      format.json { head :no_content }
+    end
+  end
+
+  def checkit
+    puts 'CHECKITTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT'
+    puts params
+    @activity = Activity.find(params[:id])
+    @activity.update_attributes(:checked => params[:checked])
+    @activity.save
+
     respond_to do |format|
       format.html { redirect_to activities_path }
       format.json { head :no_content }

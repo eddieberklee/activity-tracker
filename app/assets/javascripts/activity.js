@@ -1,38 +1,61 @@
 
 $(function() {
   
+  $(".grid-box input[type='checkbox']").click(function() {
+    var checked = $(this).prop('checked');
+    $(this).prop('checked',!checked);
+  });
+  $(".grid-box").click(function() {
+    $checkbox = $(this).find("input[type='checkbox']");
+    var activity_id = $(this).attr("activity_id");
+    var checked = $checkbox.prop('checked');
+    $checkbox.prop('checked',!checked);
+    $.ajax({
+      url: "/activities/"+activity_id+'/checkit',
+      data: {
+        id: activity_id,
+        checked: !checked,
+      },
+      method: "POST",
+      dataType: "JSON"
+    }).success(function(json) {
+      console.log('successful peazy');
+    });
+  });
+
   grid_delete_detection();
   function grid_delete_detection() {
     $(".grid-delete").click(function() {
-      //var c = confirm("You sure bro?");
-      //if (c == true) {
-      var p = $(this).parents(".grid-box");
-      var activity_id = p.attr("activity_id");
-      $.ajax({
-        url: "/activities/"+activity_id,
-        data: {
-          id: activity_id,
-        },
-        method: "DELETE",
-        dataType: "JSON"
-      }).success(function(json) {
-        p.animate({
-          width: "-=100%",
-        }, 1000, function() {
-          p.hide();
+      var c = confirm("You sure bro?");
+      if (c == true) {
+        var p = $(this).parents(".grid-box");
+        var activity_id = p.attr("activity_id");
+        $.ajax({
+          url: "/activities/"+activity_id,
+          data: {
+            id: activity_id,
+          },
+          method: "DELETE",
+          dataType: "JSON"
+        }).success(function(json) {
+          p.animate({
+            width: "-=100%",
+          }, 1000, function() {
+            p.hide();
+          });
         });
-      });
-      //} else {
+      } else {
         // do nothing
-      //}
+      }
     });
   }
 
   function new_grid_box(activity_id, title) {
     var grid_box_html = '<div class="grid-box" activity_id="'+activity_id+'"> \
+        <input type="checkbox"> \
         <h3>'+title+'</h3> \
-          <button class="grid-delete btn btn-danger" type="button"> \
-            <span class="glyphicon glyphicon-trash grid-box-delete-icon"></span> \
+          <button class="grid-button grid-delete btn btn-danger" type="button"> \
+            <span class="glyphicon glyphicon-trash"></span> \
           </button> \
         </div>';
       $newbox = $(grid_box_html);

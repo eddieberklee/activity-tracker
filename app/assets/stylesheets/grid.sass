@@ -9,9 +9,6 @@
   padding-top: 4px
   padding-left: 4px
 
-.grid-box-delete-icon
-  font-size: 12px
-
 .grid-box
   width: 33%
   height: 33%
@@ -20,11 +17,17 @@
   background-color: #eee
   cursor: pointer
   outline: 1px solid #ddd
+  -webkit-user-select: none
 .grid-box:hover
   background-color: #ddd
   outline: 1px solid #ccc
 .grid-box:hover h3
   color: #222
+.grid-box input[type="checkbox"]
+  width: 20px
+  margin: 0 auto
+  display: block
+  margin-top: 20px
 
 .grid-button
   opacity: 0
@@ -46,7 +49,7 @@
 h3 // grid box font color
   padding: 0
   margin: 4px
-  margin-top: 35%
+  margin-top: 20%
   font-size: 1.5em
   text-align: center
   display: block
