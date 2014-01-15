@@ -13,7 +13,7 @@ $(function() {
     $.ajax({
       url: "/activities/"+activity_id+'/checkit',
       data: {
-        id: activity_id,
+        activity_id: activity_id,
         checked: !checked,
       },
       method: "POST",

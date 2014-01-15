@@ -12,5 +12,6 @@
  *= require_tree .
  */
 
-.clear
-  clear: both
+.clear {
+  clear: both;
+}
