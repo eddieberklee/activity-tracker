@@ -37,6 +37,19 @@
   %h2
     = a.title
   .week-box
+    - logs = a.last_n_logs(7)
+    - for i in 6.downto(0)
+      .day-box
+        %h3
+          - if i == 0
+            Today
+          - else
+            = Date::DAYNAMES[(Time.now.to_date - i).wday][0..2]
+        - if logs.size >= i+1
+          - if logs[i].checked == true
+            <img src="/assets/checkmark_medium.png">
+    .clear
+  %br
 
 
 

@@ -14,6 +14,19 @@ class Activity < ActiveRecord::Base
     end
   end
 
+  def last_n_logs(n)
+    if n > 0
+      ordered = self.ordered_logs
+      if !ordered.nil? and ordered.size > n
+        return ordered[-n..-1]
+      elsif !ordered.nil?
+        return ordered
+      else
+        return []
+      end
+    end
+  end
+
   def ordered_logs
     self.logs.order('created_at')
   end
