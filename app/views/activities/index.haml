@@ -34,23 +34,50 @@
 %div{:style=>"height:20px;"}
 
 - @activities.each do |a|
-  %h2
+  %h2.activity-title
     = a.title
   .week-box
     - logs = a.last_n_logs(7)
+
     - for i in 6.downto(0)
-      .day-box
+      - checked2 = nil
+      - colorgreen = nil
+      - if logs.size >= i+1
+        - if logs[i].checked == true
+          - checked2 = true
+          - colorgreen = 'background-color:#c3f1d6;'
+      .day-box{:style=>"#{colorgreen}"}
         %h3
           - if i == 0
             Today
           - else
             = Date::DAYNAMES[(Time.now.to_date - i).wday][0..2]
-        - if logs.size >= i+1
-          - if logs[i].checked == true
-            <img src="/assets/checkmark_medium.png">
+        - if checked2
+          <img src="/assets/checkmark_medium.png">
     .clear
-  %br
+  %div{:style=>"height:10px;"}
 
+
+- for i in 6.downto(0)
+  - if i == 0
+    Today
+  - else
+    = Date::DAYNAMES[(Time.now.to_date - i).wday][0..2]
+  .main-grid-small
+    - @activities.each do |a|
+      - checked1 = nil
+      - logs = a.last_n_logs(7)
+      - if logs.size >= i+1
+        - if logs[i].checked == true
+          - checked1 = true
+      .grid-box-small{:activity_id=>a.id}
+        <input type="checkbox"
+        - if checked1
+          = "checked"
+        >
+        %h3{:style=>"position:relative;z-index:2;"}
+          = a.title
+    %br
 
 
 

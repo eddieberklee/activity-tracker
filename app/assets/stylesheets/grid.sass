@@ -8,8 +8,15 @@
   outline: 1px solid #ccc
   padding-top: 4px
   padding-left: 4px
+.main-grid-small
+  width: 150px
+  height: 150px
+  margin: 5px
+  outline: 1px solid #ccc
+  padding-top: 4px
+  padding-left: 4px
 
-.grid-box
+.grid-box, .grid-box-small
   width: 33%
   height: 33%
   position: relative
@@ -18,16 +25,32 @@
   cursor: pointer
   outline: 1px solid #ddd
   -webkit-user-select: none
-.grid-box:hover
+  h3 // grid box font color
+    padding: 0
+    margin: 4px
+    margin-top: 20%
+    font-size: 1.5em
+    text-align: center
+    display: block
+    color: #555
+
+.grid-box:hover, .grid-box-small:hover
   background-color: #ddd
   outline: 1px solid #ccc
-.grid-box:hover h3
+.grid-box:hover h3, .grid-box-small:hover h3
   color: #222
-.grid-box input[type="checkbox"]
+.grid-box input[type="checkbox"], .grid-box-small input[type="checkbox"]
   width: 20px
   margin: 0 auto
   display: block
   margin-top: 20px
+
+.grid-box-small
+  h3
+    font-size: 0.65em
+    margin-top: 10%
+  input[type="checkbox"]
+    margin-top: 8px
 
 .grid-button
   opacity: 0
@@ -45,15 +68,6 @@
 .grid-color
   bottom: 5px
   right: 40px
-
-h3 // grid box font color
-  padding: 0
-  margin: 4px
-  margin-top: 20%
-  font-size: 1.5em
-  text-align: center
-  display: block
-  color: #555
 
 .submit-button
   position: relative
