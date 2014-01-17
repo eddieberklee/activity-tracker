@@ -12,17 +12,19 @@ $(function() {
       var activity_id = $(this).attr("activity_id");
       var checked = $checkbox.prop('checked');
       $checkbox.prop('checked',!checked);
-      $.ajax({
-        url: "/activities/"+activity_id+'/checkit',
-        data: {
-          activity_id: activity_id,
-          checked: !checked,
-        },
-        method: "POST",
-        dataType: "JSON"
-      }).success(function(json) {
-        console.log('successful peazy');
-      });
+      if (activity_id) {
+        $.ajax({
+          url: "/activities/"+activity_id+'/checkit',
+          data: {
+            activity_id: activity_id,
+            checked: !checked,
+          },
+          method: "POST",
+          dataType: "JSON"
+        }).success(function(json) {
+          console.log('successful peazy');
+        });
+      }
     });
   }
 
