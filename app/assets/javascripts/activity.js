@@ -1,27 +1,30 @@
 
 $(function() {
   
-  $(".grid-box input[type='checkbox']").click(function() {
-    var checked = $(this).prop('checked');
-    $(this).prop('checked',!checked);
-  });
-  $(".grid-box").click(function() {
-    $checkbox = $(this).find("input[type='checkbox']");
-    var activity_id = $(this).attr("activity_id");
-    var checked = $checkbox.prop('checked');
-    $checkbox.prop('checked',!checked);
-    $.ajax({
-      url: "/activities/"+activity_id+'/checkit',
-      data: {
-        activity_id: activity_id,
-        checked: !checked,
-      },
-      method: "POST",
-      dataType: "JSON"
-    }).success(function(json) {
-      console.log('successful peazy');
+  grid_click_detection();
+  function grid_click_detection() {
+    $(".grid-box input[type='checkbox']").click(function() {
+      var checked = $(this).prop('checked');
+      $(this).prop('checked',!checked);
     });
-  });
+    $(".grid-box").click(function() {
+      $checkbox = $(this).find("input[type='checkbox']");
+      var activity_id = $(this).attr("activity_id");
+      var checked = $checkbox.prop('checked');
+      $checkbox.prop('checked',!checked);
+      $.ajax({
+        url: "/activities/"+activity_id+'/checkit',
+        data: {
+          activity_id: activity_id,
+          checked: !checked,
+        },
+        method: "POST",
+        dataType: "JSON"
+      }).success(function(json) {
+        console.log('successful peazy');
+      });
+    });
+  }
 
   grid_delete_detection();
   function grid_delete_detection() {
@@ -63,6 +66,7 @@ $(function() {
       $newbox.find('h3').text(title); // set the new title
       $newbox.insertBefore($lastbox);
       grid_delete_detection();
+      grid_click_detection();
   }
 
   $(".grid-add").click(function(e) {
@@ -77,29 +81,32 @@ $(function() {
       method: "POST",
       dataType: "JSON"
     }).success(function(json) {
-      console.log(json);
+      // console.log(json);
       activity_id = json;
       new_grid_box(activity_id, title);
     });
   });
 
-  $("#grid-add-box").click(function(e) {
-    var title = prompt("Enter the title of the activity you want to track:","eg. Pushups, Reading, Guitar...");
-    if (title != null) {
-      e.preventDefault();
-      $.ajax({
-        url: "/activities",
-        data: {
-          "activity": {title: title}
-        },
-        method: "POST",
-        dataType: "JSON"
-      }).success(function(json) {
-        activity_id = json;
-        new_grid_box(activity_id, title);
-      });
-    } // if title != null
-  });
+  grid_new_create();
+  function grid_new_create() {
+    $("#grid-add-box").click(function(e) {
+      var title = prompt("Enter the title of the activity you want to track:","eg. Pushups, Reading, Guitar...");
+      if (title != null) {
+        e.preventDefault();
+        $.ajax({
+          url: "/activities",
+          data: {
+            "activity": {title: title}
+          },
+          method: "POST",
+          dataType: "JSON"
+        }).success(function(json) {
+          activity_id = json;
+          new_grid_box(activity_id, title);
+        });
+      } // if title != null
+    });
+  }
 
 });
 
