@@ -25,14 +25,14 @@
         = Date::DAYNAMES[(Time.now.to_date - i).wday]
     .main-grid-small
       - @activities.each do |a|
-        - checked1 = nil
+        - checked = nil
         - logs = a.last_n_logs(7)
-        - if logs.size >= i+1
-          - if logs[i].checked == true
-            - checked1 = true
+        - logs.each do |l|
+          - if l.created_at.to_date == (Time.now.to_date - i) and l.checked == true
+            - checked = true
         .grid-box-small{:activity_id=>a.id}
           <input type="checkbox" disabled
-          - if checked1
+          - if checked
             = "checked"
           >
           %h3{:style=>"position:relative;z-index:2;"}
@@ -69,21 +69,21 @@
       - logs = a.last_n_logs(7)
 
       - for i in 6.downto(0)
-        - checked2 = nil
-        - colorgreen = nil
-        - if logs.size >= i+1
-          - if logs[i].checked == true
-            - checked2 = true
-            - colorgreen = 'background-color:#c3f1d6;'
-        .day-box{:style=>"#{colorgreen}"}
+        - checked = nil
+        - checked_class = nil
+        - logs.each do |l|
+          - if l.created_at.to_date == (Time.now.to_date - i) and l.checked == true
+            - checked = true
+            - checked_class = 'checked_class'
+        .day-box{:class=>"#{checked_class}"}
           %h3
             - if i == 0
               Today
             - else
               = Date::DAYNAMES[(Time.now.to_date - i).wday][0..2]
-          - if checked2
+          - if checked
             <img src="/assets/checkmark_medium.png">
-      .clear
+    .clear
     %div{:style=>"height:10px;"}
 
 
